@@ -1,0 +1,12 @@
+{
+    "datasets": [
+        {
+            "x": [
+                "./datasets/traces-jnsm-2017/Constant-Cross-Traffic/X_cluster.csv",
+                "./datasets/traces-jnsm-2017/Constant-Cross-Traffic/X_path.csv",
+                "./datasets/traces-jnsm-2017/Constant-Cross-Traffic/X_port.csv"
+            ],
+            "y": "./datasets/traces-jnsm-2017/Constant-Cross-Traffic/Y.csv"
+        }
+    ]
+}
