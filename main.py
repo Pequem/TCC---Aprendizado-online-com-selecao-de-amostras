@@ -3,8 +3,10 @@ from loaders.dataset import Dataset as DatasetLoader
 from helpers.log import Log
 from concurrent import futures
 from multiprocessing import freeze_support
+import pandas as pd
 import sys
 import code
+from model import Model
 
 def LoadDataSets(configs):
     executor = futures.ProcessPoolExecutor(12)
@@ -56,5 +58,14 @@ if __name__ == '__main__':
 
     datasets = LoadDataSets(configs)
 
-    code.interact(local=locals())
+    model = Model({
+        'x': pd.concat(datasets['x'], axis=1),
+        'y': datasets['y']['AvgInterDispDelay']
+    })
+
+    model.train()
+    
+    print(model.test_accuracy())
+
+    #code.interact(local=locals())
 
