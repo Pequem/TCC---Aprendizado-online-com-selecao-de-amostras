@@ -8,7 +8,7 @@ class Log:
             SCRIPT_TIME_START = time.time()
 
 
-    def degub(self, message):
+    def debug(self, message):
         global SCRIPT_TIME_START
         elapsed_time = round((time.time() - SCRIPT_TIME_START) * 1000)
         print("{:010d}".format(elapsed_time) +  ': ' + message)

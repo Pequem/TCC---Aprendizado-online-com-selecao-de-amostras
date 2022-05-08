@@ -31,7 +31,7 @@ class Dataset:
             for future in futureObjs:
                 if future['future'].result():
                     columnsToExclude.append(future['column'])
-        self.log.degub('Removed ' + str(len(columnsToExclude)) + ' of ' + str(len(df.columns)) + ' columns from  ' + self.path)
+        self.log.debug('Removed ' + str(len(columnsToExclude)) + ' of ' + str(len(df.columns)) + ' columns from  ' + self.path)
         df = df.drop(columnsToExclude, axis=1)
         return df
 
@@ -47,11 +47,11 @@ class Dataset:
         return result
 
     def __processData(self, df):
-        self.log.degub('Processing dataset ' + self.path)
+        self.log.debug('Processing dataset ' + self.path)
         df = self.__cleanData(df)
         df = self.__normalize(df)
         df = df.astype(float32)
-        self.log.degub('Finish processing ' + self.path)
+        self.log.debug('Finish processing ' + self.path)
         return df
 
     def getCachePath(self):
@@ -70,18 +70,18 @@ class Dataset:
 
     def read(self):
         if self.checkIfHasCache():
-            self.log.degub('Loading dataset from cache ' + self.path)
+            self.log.debug('Loading dataset from cache ' + self.path)
             data = pd.read_csv(self.getCachePath())
             data = data.iloc[: , 1:]
             data = data.astype(float32)
             data = self.__removeNaNandINF(data)
-            self.log.degub('Finish dataset from cache ' + self.path)
+            self.log.debug('Finish dataset from cache ' + self.path)
             return data
 
-        self.log.degub('Loading dataset ' + self.path)
+        self.log.debug('Loading dataset ' + self.path)
         data = pd.read_csv(self.path)
         data = self.__processData(data)
         self.writeCache(data)
         data = self.__removeNaNandINF(data)
-        self.log.degub('Finish loading ' + self.path)
+        self.log.debug('Finish loading ' + self.path)
         return data

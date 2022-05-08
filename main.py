@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
     log = Log()
 
-    log.degub('Script start')
+    log.debug('Script start')
 
     configFile = 'config.json'
 
@@ -54,7 +54,7 @@ if __name__ == '__main__':
 
     configs = loader.read()
 
-    log.degub('Configs loaded')
+    log.debug('Configs loaded')
 
     datasets = LoadDataSets(configs)
 
