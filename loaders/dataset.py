@@ -31,7 +31,7 @@ class Dataset:
             for future in futureObjs:
                 if future['future'].result():
                     columnsToExclude.append(future['column'])
-        self.log.degub('Removed ' + str(len(columnsToExclude)) + ' of ' + str(len(df.columns)) + ' columns of  ' + self.path)
+        self.log.degub('Removed ' + str(len(columnsToExclude)) + ' of ' + str(len(df.columns)) + ' columns from  ' + self.path)
         df = df.drop(columnsToExclude, axis=1)
         return df
 
