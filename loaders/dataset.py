@@ -23,7 +23,7 @@ class Dataset:
 
     def __cleanData(self, df: pd.DataFrame):
         futureObjs = []
-        columnsToExclude = []
+        columnsToExclude = ['TimeStamp']
         with futures.ProcessPoolExecutor(cpu_count()) as executor:
             for column in df.columns:
                 future = executor.submit(self.needExclude, df[column])
@@ -36,7 +36,8 @@ class Dataset:
         return df
 
     def __removeNaNandINF(self, df: pd.DataFrame):
-        df.replace([np.inf, -np.inf], np.nan, inplace=True)
+        df.replace([np.inf], np.finfo(float32).max, inplace=True)
+        df.replace([-np.inf], -np.finfo(float32).max, inplace=True)
         df.fillna(0, inplace=True)
         return df
 

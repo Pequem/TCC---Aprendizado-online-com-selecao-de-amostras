@@ -1,46 +1,44 @@
-from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
-from sklearn import metrics
+from sklearn.metrics import mean_absolute_error
+from numpy import mean
+
 
 class Model:
 
-    test_size = 0.3
-    n_estimators = 10
     model = None
     data = None
+    random_state = 100
+    online_mode = False
 
-    def __split_data(self, data):
-        x_train, x_test, y_train, y_test = train_test_split(data['x'], data['y'], test_size=self.test_size)
-        return {
-            'train': {
-                'x': x_train,
-                'y': y_train
-            },
-            'test': {
-                'x': x_test,
-                'y': y_test
-            }
-        }
-
-    def __init__(self, data, test_size = 0.3, n_estimators = 10) -> None:
-        self.rawData = data
-        self.test_size = test_size
+    def __init__(self, n_estimators=10, online_mode=False) -> None:
         self.n_estimators = n_estimators
+        self.online_mode = online_mode
+        self.__init_model()
 
-    def train(self):
-        if (self.data == None):
-            self.data = self.__split_data(self.rawData)
-    
-        self.model = RandomForestRegressor(n_estimators=self.n_estimators)
-        self.model.fit(self.data['train']['x'], self.data['train']['y'])
+    def __init_model(self):
+        self.model = RandomForestRegressor(
+            n_estimators=self.n_estimators,
+            random_state=self.random_state,
+            warm_start=self.online_mode,
+            n_jobs=-1
+        )
 
-    def test_accuracy(self):
-        if (self.model):
-            return self.model.score(self.data['test']['x'], self.data['test']['y'])
+    def train(self, data):
+        self.model.fit(data['x'], data['y'].values.ravel())
+
+    def test_accuracy(self, test_data):
+        if self.model:
+            mae = mean_absolute_error(
+                test_data['y'], self.predict(test_data['x']))
+            return {
+                'r2': self.model.score(test_data['x'], test_data['y']),
+                'nmae': mae / mean(test_data['y']),
+                'mae': mae
+            }
         else:
-            raise 'Model not trained'
+            raise Exception('Model not trained')
 
-    def predict(self,x_predict):
-        if (self.model == None):
-            raise 'Model not trained'
+    def predict(self, x_predict):
+        if self.model is None:
+            raise Exception("Model not trained")
         return self.model.predict(x_predict)
