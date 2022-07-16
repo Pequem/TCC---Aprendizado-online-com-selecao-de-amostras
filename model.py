@@ -5,10 +5,7 @@ from numpy import mean
 
 class Model:
 
-    model = None
-    data = None
     random_state = 100
-    online_mode = False
 
     def __init__(self, n_estimators=10, online_mode=False) -> None:
         self.n_estimators = n_estimators

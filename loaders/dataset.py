@@ -7,6 +7,8 @@ import os
 import numpy as np
 
 from helpers.log import Log
+
+
 class Dataset:
     def __init__(self, path) -> None:
         self.log = Log()
@@ -20,7 +22,6 @@ class Dataset:
                 return False
         return True
 
-
     def __cleanData(self, df: pd.DataFrame):
         futureObjs = []
         columnsToExclude = ['TimeStamp']
@@ -31,7 +32,8 @@ class Dataset:
             for future in futureObjs:
                 if future['future'].result():
                     columnsToExclude.append(future['column'])
-        self.log.debug('Removed ' + str(len(columnsToExclude)) + ' of ' + str(len(df.columns)) + ' columns from  ' + self.path)
+        self.log.debug('Removed ' + str(len(columnsToExclude)) +
+                       ' of ' + str(len(df.columns)) + ' columns from  ' + self.path)
         df = df.drop(columnsToExclude, axis=1)
         return df
 
@@ -41,16 +43,15 @@ class Dataset:
         df.fillna(0, inplace=True)
         return df
 
-
     def __normalize(self, df):
         scaler = preprocessing.MaxAbsScaler().fit(df)
-        result = pd.DataFrame(scaler.transform(df), columns=df.columns, dtype=float32)
+        result = pd.DataFrame(scaler.transform(
+            df), columns=df.columns, dtype=float32)
         return result
 
     def __processData(self, df):
         self.log.debug('Processing dataset ' + self.path)
         df = self.__cleanData(df)
-        df = self.__normalize(df)
         df = df.astype(float32)
         self.log.debug('Finish processing ' + self.path)
         return df
@@ -69,11 +70,11 @@ class Dataset:
         os.makedirs(dirPath, exist_ok=True)
         df.to_csv(cachePath)
 
-    def read(self):
+    def read(self, normalize=True):
         if self.checkIfHasCache():
             self.log.debug('Loading dataset from cache ' + self.path)
             data = pd.read_csv(self.getCachePath())
-            data = data.iloc[: , 1:]
+            data = data.iloc[:, 1:]
             data = data.astype(float32)
             data = self.__removeNaNandINF(data)
             self.log.debug('Finish dataset from cache ' + self.path)
@@ -82,6 +83,9 @@ class Dataset:
         self.log.debug('Loading dataset ' + self.path)
         data = pd.read_csv(self.path)
         data = self.__processData(data)
+        if normalize:
+            data = self.__normalize(data)
+
         self.writeCache(data)
         data = self.__removeNaNandINF(data)
         self.log.debug('Finish loading ' + self.path)

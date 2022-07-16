@@ -5,21 +5,20 @@ import pandas
 
 class Reservoir:
 
-    dataset = []
-    dataset_len = 0
-    dataset_change = False
-
     def set_init_dataset(self, dataset):
         self.dataset = dataset
         self.dataset_len = len(self.dataset['x'])
+        self.dataset_change_count = 0
 
     def get_dataset(self):
         return self.dataset
 
     def should_retrain(self):
-        response = self.dataset_change
-        self.dataset_change = False
-        return response
+        prob = random.randint(0, self.dataset_len)
+        if prob < self.dataset_change_count:
+            self.dataset_change_count = 0
+            return True
+        return False
 
     def handle(self, sample, index):
         prob = random.randint(1, index)
@@ -34,4 +33,4 @@ class Reservoir:
             self.dataset['y'] = pandas.DataFrame(
                 data=y_values
             )
-            self.dataset_change = True
+            self.dataset_change_count += 1
