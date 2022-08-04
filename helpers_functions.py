@@ -19,6 +19,28 @@ def split_data(data, test_size=0.3):
     return train_data, test_data
 
 
+def load_data_set_sync(dataset_config):
+    x_dataset = []
+    y_dataset = None
+
+    target = ''
+
+    # load X datas
+    for xs in dataset_config['x']:
+        d_loader = DatasetLoader(xs)
+        x_dataset.append(d_loader.read())
+
+    # load Y data
+    d_loader = DatasetLoader(dataset_config['y'])
+    target = dataset_config['target']
+    y_dataset = d_loader.read()[target]
+
+    return {
+        'x': x_dataset,
+        'y': y_dataset
+    }
+
+
 def load_data_set(dataset_config):
     x_promisses = []
     y_promisses = []

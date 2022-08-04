@@ -1,6 +1,66 @@
 {
     "datasets": [
         {
+            "name": "Dynamic-Cross-Traffic",
+            "x": [
+                "./datasets/traces-jnsm-2017/Dynamic-Cross-Traffic/X_cluster.csv",
+                "./datasets/traces-jnsm-2017/Dynamic-Cross-Traffic/X_path.csv",
+                "./datasets/traces-jnsm-2017/Dynamic-Cross-Traffic/X_port.csv"
+            ],
+            "y": "./datasets/traces-jnsm-2017/Dynamic-Cross-Traffic/Y.csv",
+            "target": "NetReadBytes"
+        },
+        {
+            "name": "Dynamic-Cross-Traffic",
+            "x": [
+                "./datasets/traces-jnsm-2017/Dynamic-Cross-Traffic/X_path.csv",
+                "./datasets/traces-jnsm-2017/Dynamic-Cross-Traffic/X_cluster.csv",
+                "./datasets/traces-jnsm-2017/Dynamic-Cross-Traffic/X_port.csv"
+            ],
+            "y": "./datasets/traces-jnsm-2017/Dynamic-Cross-Traffic/Y.csv",
+            "target": "NetReadAvgDelay"
+        },
+        {
+            "name": "Dynamic-Cross-Traffic",
+            "x": [
+                "./datasets/traces-jnsm-2017/Dynamic-Cross-Traffic/X_path.csv",
+                "./datasets/traces-jnsm-2017/Dynamic-Cross-Traffic/X_cluster.csv",
+                "./datasets/traces-jnsm-2017/Dynamic-Cross-Traffic/X_port.csv"
+            ],
+            "y": "./datasets/traces-jnsm-2017/Dynamic-Cross-Traffic/Y.csv",
+            "target": "NetReadOperations"
+        },
+        {
+            "name": "Constant-Cross-Traffic",
+            "x": [
+                "./datasets/traces-jnsm-2017/Constant-Cross-Traffic/X_cluster.csv",
+                "./datasets/traces-jnsm-2017/Constant-Cross-Traffic/X_path.csv",
+                "./datasets/traces-jnsm-2017/Constant-Cross-Traffic/X_port.csv"
+            ],
+            "y": "./datasets/traces-jnsm-2017/Constant-Cross-Traffic/Y.csv",
+            "target": "NetReadBytes"
+        },
+        {
+            "name": "Constant-Cross-Traffic",
+            "x": [
+                "./datasets/traces-jnsm-2017/Constant-Cross-Traffic/X_path.csv",
+                "./datasets/traces-jnsm-2017/Constant-Cross-Traffic/X_cluster.csv",
+                "./datasets/traces-jnsm-2017/Constant-Cross-Traffic/X_port.csv"
+            ],
+            "y": "./datasets/traces-jnsm-2017/Constant-Cross-Traffic/Y.csv",
+            "target": "NetReadAvgDelay"
+        },
+        {
+            "name": "Constant-Cross-Traffic",
+            "x": [
+                "./datasets/traces-jnsm-2017/Constant-Cross-Traffic/X_path.csv",
+                "./datasets/traces-jnsm-2017/Constant-Cross-Traffic/X_cluster.csv",
+                "./datasets/traces-jnsm-2017/Constant-Cross-Traffic/X_port.csv"
+            ],
+            "y": "./datasets/traces-jnsm-2017/Constant-Cross-Traffic/Y.csv",
+            "target": "NetReadOperations"
+        },
+        {
             "name": "VoD-BothApps-FlashcrowdLoad",
             "x": [
                 "./datasets/traces-jnsm-2017/VoD-BothApps-FlashcrowdLoad/X_path.csv",

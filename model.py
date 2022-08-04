@@ -15,8 +15,8 @@ class Model:
     def __init_model(self):
         self.model = RandomForestRegressor(
             n_estimators=self.n_estimators,
-            random_state=self.random_state,
             warm_start=self.online_mode,
+            random_state=self.random_state,
             n_jobs=-1
         )
 

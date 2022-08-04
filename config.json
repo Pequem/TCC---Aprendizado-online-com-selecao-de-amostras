@@ -1,46 +1,6 @@
 {
     "datasets": [
         {
-            "name": "VoD-BothApps-FlashcrowdLoad",
-            "x": [
-                "./datasets/traces-jnsm-2017/VoD-BothApps-FlashcrowdLoad/X_path.csv",
-                "./datasets/traces-jnsm-2017/VoD-BothApps-FlashcrowdLoad/X_cluster.csv",
-                "./datasets/traces-jnsm-2017/VoD-BothApps-FlashcrowdLoad/X_port.csv"
-            ],
-            "y": "./datasets/traces-jnsm-2017/VoD-BothApps-FlashcrowdLoad/Y.csv",
-            "target": "DispFrames"
-        },
-        {
-            "name": "VoD-BothApps-PeriodicLoad",
-            "x": [
-                "./datasets/traces-jnsm-2017/VoD-BothApps-PeriodicLoad/X_path.csv",
-                "./datasets/traces-jnsm-2017/VoD-BothApps-PeriodicLoad/X_cluster.csv",
-                "./datasets/traces-jnsm-2017/VoD-BothApps-PeriodicLoad/X_port.csv"
-            ],
-            "y": "./datasets/traces-jnsm-2017/VoD-BothApps-PeriodicLoad/Y.csv",
-            "target": "DispFrames"
-        },
-        {
-            "name": "VoD-SingleApp-FlashcrowdLoad",
-            "x": [
-                "./datasets/traces-jnsm-2017/VoD-SingleApp-FlashcrowdLoad/X_path.csv",
-                "./datasets/traces-jnsm-2017/VoD-SingleApp-FlashcrowdLoad/X_cluster.csv",
-                "./datasets/traces-jnsm-2017/VoD-SingleApp-FlashcrowdLoad/X_port.csv"
-            ],
-            "y": "./datasets/traces-jnsm-2017/VoD-SingleApp-FlashcrowdLoad/Y.csv",
-            "target": "DispFrames"
-        },
-        {
-            "name": "VoD-SingleApp-PeriodicLoad",
-            "x": [
-                "./datasets/traces-jnsm-2017/VoD-SingleApp-PeriodicLoad/X_path.csv",
-                "./datasets/traces-jnsm-2017/VoD-SingleApp-PeriodicLoad/X_cluster.csv",
-                "./datasets/traces-jnsm-2017/VoD-SingleApp-PeriodicLoad/X_port.csv"
-            ],
-            "y": "./datasets/traces-jnsm-2017/VoD-SingleApp-PeriodicLoad/Y.csv",
-            "target": "DispFrames"
-        },
-        {
             "name": "KV-BothApps-FlashcrowdLoad",
             "x": [
                 "./datasets/traces-jnsm-2017/KV-BothApps-FlashcrowdLoad/X_path.csv",
@@ -51,14 +11,14 @@
             "target": "ReadsAvg"
         },
         {
-            "name": "VoD-BothApps-FlashcrowdLoad",
+            "name": "KV-BothApps-PeriodicLoad",
             "x": [
-                "./datasets/traces-jnsm-2017/VoD-BothApps-FlashcrowdLoad/X_path.csv",
-                "./datasets/traces-jnsm-2017/VoD-BothApps-FlashcrowdLoad/X_cluster.csv",
-                "./datasets/traces-jnsm-2017/VoD-BothApps-FlashcrowdLoad/X_port.csv"
+                "./datasets/traces-jnsm-2017/KV-BothApps-PeriodicLoad/X_path.csv",
+                "./datasets/traces-jnsm-2017/KV-BothApps-PeriodicLoad/X_cluster.csv",
+                "./datasets/traces-jnsm-2017/KV-BothApps-PeriodicLoad/X_port.csv"
             ],
-            "y": "./datasets/traces-jnsm-2017/VoD-BothApps-FlashcrowdLoad/Y.csv",
-            "target": "NetReadOperations"
+            "y": "./datasets/traces-jnsm-2017/KV-BothApps-PeriodicLoad/Y.csv",
+            "target": "ReadsAvg"
         }
     ]
 }

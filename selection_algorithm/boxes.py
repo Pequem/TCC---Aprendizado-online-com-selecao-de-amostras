@@ -3,7 +3,6 @@ from math import sqrt
 import math
 import numpy as np
 import pandas as pd
-from sklearn.decomposition import PCA
 
 
 class Boxes:

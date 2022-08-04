@@ -1,7 +1,3 @@
-from sklearn.metrics import accuracy_score
-from helpers_functions import split_data
-
-
 class OnlineEmulator:
 
     def __init__(self, model, sample_select, data, dataset_length=100, test_data_length=100):
