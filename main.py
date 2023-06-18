@@ -21,10 +21,10 @@ def plot_metrics(emulator, test_len, dataset_len, save_path):
 
     for metric in ['r2', 'mae', 'nmae']:
         fig, ax = plt.subplots()
-        title = metric.upper() + ' - ' + 'Dataset: ' + str(dataset_len) + \
+        title = metric.upper() + ' - ' + 'Cache: ' + str(dataset_len) + \
             ' | Test: ' + str(test_len) + '| Mean: ' + \
             str(round(accuracies[metric].mean(), 4))
-        accuracies.plot(kind='line', x='train_number',
+        accuracies.plot(kind='line', use_index=True,
                         y=metric, title=title, ax=ax)
         plt.savefig(save_path + metric + '_d_' +
                     str(dataset_len) + '_t_' + str(test_len) + '.png')
@@ -73,11 +73,13 @@ def plot_metrics2(emulator, test_len, dataset_len, dimension, division, distance
 
     for metric in ['nmae']:
         fig, ax = plt.subplots()
-        title = metric.upper() + ' - ' + 'Dataset: ' + str(dataset_len) + \
+
+        title = metric.upper() + ' - ' + 'Cache: ' + str(dataset_len) + \
             ' | Test: ' + str(test_len) + '| Mean: ' + \
             str(round(accuracies[metric].mean(), 4)) + ' | ' + \
             str(dimension) + '-' + str(division) + '-' + str(distance)
-        accuracies.plot(kind='line', x='train_number',
+
+        accuracies.plot(kind='line', use_index=True,
                         y=metric, title=title, ax=ax)
         plt.savefig(save_path + metric + '_d_' +
                     str(dataset_len) + '_t_' + str(test_len) + '_' + str(dimension) + '_' + str(division) + '_' + str(distance) + '.png')
@@ -116,14 +118,15 @@ if __name__ == '__main__':
 
         with concurrent.futures.ProcessPoolExecutor() as executor:
             for dataset_length in values_for_test:
-                executor.submit(test_reservoir, dataset_length,
-                                100, dataset_config['name'], dataset_config['target'])
+                for test_length in values_for_test:
+                    executor.submit(test_reservoir, dataset_length,
+                                    test_length, dataset_config['name'], dataset_config['target'])
 
         with concurrent.futures.ProcessPoolExecutor() as executor:
             for dataset_length in values_for_test:
                 for test_length in values_for_test:
                     for dimension in [3]:
                         for divisions in [3]:
-                            for distance in [0.1]:
+                            for distance in [0.05]:
                                 executor.submit(test_boxes, dataset_length,
                                                 test_length, divisions, dimension, distance, dataset_config['name'], dataset_config['target'])
