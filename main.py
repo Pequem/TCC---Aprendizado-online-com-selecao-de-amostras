@@ -20,18 +20,21 @@ def plot_metrics(emulator, test_len, dataset_len, save_path):
     accuracies = pd.DataFrame(accuracies)
 
     for metric in ['r2', 'mae', 'nmae']:
+        plt.switch_backend('agg')
+
         fig, ax = plt.subplots()
         title = metric.upper() + ' - ' + 'Cache: ' + str(dataset_len) + \
             ' | Test: ' + str(test_len) + '| Mean: ' + \
             str(round(accuracies[metric].mean(), 4))
         accuracies.plot(kind='line', use_index=True,
                         y=metric, title=title, ax=ax)
+
         plt.savefig(save_path + metric + '_d_' +
                     str(dataset_len) + '_t_' + str(test_len) + '.png')
         plt.close(fig)
 
 
-def test_reservoir(dataset_len, test_len, dataset_name, y_name):
+def test_reservoir(log, data, dataset_len, test_len, dataset_name, y_name):
     save_path = 'results/reservoir/' + dataset_name + '/' + y_name + '/'
     os.makedirs(save_path, exist_ok=True)
 
@@ -47,7 +50,7 @@ def test_reservoir(dataset_len, test_len, dataset_name, y_name):
     plot_metrics(emulator, test_len, dataset_len, save_path)
 
 
-def test_boxes(dataset_len, test_len, divisions, dimension, distance, dataset_name, y_name):
+def test_boxes(log, data, dataset_len, test_len, divisions, dimension, distance, dataset_name, y_name):
     save_path = 'results/boxes/' + dataset_name + '/' + y_name + '/'
     os.makedirs(save_path, exist_ok=True)
 
@@ -72,6 +75,7 @@ def plot_metrics2(emulator, test_len, dataset_len, dimension, division, distance
     accuracies = pd.DataFrame(accuracies)
 
     for metric in ['nmae']:
+        plt.switch_backend('agg')
         fig, ax = plt.subplots()
 
         title = metric.upper() + ' - ' + 'Cache: ' + str(dataset_len) + \
@@ -81,6 +85,7 @@ def plot_metrics2(emulator, test_len, dataset_len, dimension, division, distance
 
         accuracies.plot(kind='line', use_index=True,
                         y=metric, title=title, ax=ax)
+
         plt.savefig(save_path + metric + '_d_' +
                     str(dataset_len) + '_t_' + str(test_len) + '_' + str(dimension) + '_' + str(division) + '_' + str(distance) + '.png')
         plt.close(fig)
@@ -119,7 +124,7 @@ if __name__ == '__main__':
         with concurrent.futures.ProcessPoolExecutor() as executor:
             for dataset_length in values_for_test:
                 for test_length in values_for_test:
-                    executor.submit(test_reservoir, dataset_length,
+                    executor.submit(test_reservoir, log, data, dataset_length,
                                     test_length, dataset_config['name'], dataset_config['target'])
 
         with concurrent.futures.ProcessPoolExecutor() as executor:
@@ -128,5 +133,5 @@ if __name__ == '__main__':
                     for dimension in [3]:
                         for divisions in [3]:
                             for distance in [0.05]:
-                                executor.submit(test_boxes, dataset_length,
+                                executor.submit(test_boxes, log, data, dataset_length,
                                                 test_length, divisions, dimension, distance, dataset_config['name'], dataset_config['target'])
